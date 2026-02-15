@@ -132,12 +132,18 @@ Graph labels are stored separately for different splits:
 - **Training labels:** `train_labels.csv`  
 - **Validation labels:** `val_labels.csv`  
 - **Test labels (hidden for competition evaluation):** `private/test_labels.csv`  
+- Each CSV file contains two columns:
+    1. `id` → Graph ID  
+    2. `y_true` → Label (0 or 1)
 
-Each CSV file contains two columns:
 
-1. `id` → Graph ID  
-2. `y_true` → Label (0 or 1)
+### Dataset Statistics
 
+Here are some key statistics for the news propagation graphs in the competition datasets:
+
+| Dataset      | #Graphs (Fake) | #Total Nodes | #Total Edges | Avg. Nodes per Graph |
+|-------------|----------------|--------------|--------------|--------------------|
+| GossipCop (GOS)  | 5,464 (2,732)   | 314,262      | 308,798      | 58                 |
 
 
 ---
