@@ -35,8 +35,7 @@ function renderTable(rows) {
       <td>${row.model_type}</td>
       <td>${Number(row.f1_score).toFixed(4)}</td>
       <td>${Number(row.accuracy).toFixed(4)}</td>
-      <td>${Number(row.precision).toFixed(4)}</td>
-      <td>${Number(row.recall).toFixed(4)}</td>
+   
       <td>${row.submission_date}</td>
       <td>${submitterLink}</td>
     `;

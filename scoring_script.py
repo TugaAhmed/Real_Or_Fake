@@ -10,16 +10,8 @@ import pandas as pd
 import numpy as np
 from sklearn.metrics import (
     f1_score,
-    matthews_corrcoef,
-    balanced_accuracy_score,
-    confusion_matrix,
-    roc_auc_score,
-    average_precision_score,
-    cohen_kappa_score,
     accuracy_score,
-    precision_score,
-    recall_score,
-    classification_report
+
 )
 
 def score_predictions(y_true, y_pred, y_proba=None):
@@ -41,8 +33,8 @@ def score_predictions(y_true, y_pred, y_proba=None):
     metrics['accuracy'] = accuracy_score(y_true, y_pred)
     
     # ===== PRECISION & RECALL =====
-    metrics['precision'] = precision_score(y_true, y_pred, average='binary', zero_division=0)
-    metrics['recall'] = recall_score(y_true, y_pred, average='binary', zero_division=0)
+    # metrics['precision'] = precision_score(y_true, y_pred, average='binary', zero_division=0)
+    # metrics['recall'] = recall_score(y_true, y_pred, average='binary', zero_division=0)
     
     # ===== DIFFICULT METRIC #1: MACRO F1-SCORE =====
     # Equal weight per class (penalizes minority class errors)
@@ -52,37 +44,37 @@ def score_predictions(y_true, y_pred, y_proba=None):
     
     # ===== DIFFICULT METRIC #2: MATTHEW'S CORRELATION COEFFICIENT =====
     # Strictest metric: only positive if beats random chance
-    metrics['mcc'] = matthews_corrcoef(y_true, y_pred)
+    # metrics['mcc'] = matthews_corrcoef(y_true, y_pred)
     
     # ===== DIFFICULT METRIC #3: BALANCED ACCURACY =====
     # Average of per-class recalls (accounts for class imbalance)
-    metrics['balanced_accuracy'] = balanced_accuracy_score(y_true, y_pred)
+    # metrics['balanced_accuracy'] = balanced_accuracy_score(y_true, y_pred)
     
     # ===== CONFUSION MATRIX =====
-    tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
-    metrics['confusion_matrix'] = {'TP': int(tp), 'FP': int(fp), 'FN': int(fn), 'TN': int(tn)}
+    # tn, fp, fn, tp = confusion_matrix(y_true, y_pred).ravel()
+    # metrics['confusion_matrix'] = {'TP': int(tp), 'FP': int(fp), 'FN': int(fn), 'TN': int(tn)}
     
     # ===== SENSITIVITY & SPECIFICITY =====
-    sensitivity = tp / (tp + fn) if (tp + fn) > 0 else 0
-    specificity = tn / (tn + fp) if (tn + fp) > 0 else 0
-    metrics['sensitivity'] = sensitivity
-    metrics['specificity'] = specificity
-    metrics['youden_index'] = sensitivity + specificity - 1
+    # sensitivity = tp / (tp + fn) if (tp + fn) > 0 else 0
+    # specificity = tn / (tn + fp) if (tn + fp) > 0 else 0
+    # metrics['sensitivity'] = sensitivity
+    # metrics['specificity'] = specificity
+    # metrics['youden_index'] = sensitivity + specificity - 1
     
     # ===== COHEN'S KAPPA =====
     # Agreement beyond chance
-    metrics['cohen_kappa'] = cohen_kappa_score(y_true, y_pred)
+    # metrics['cohen_kappa'] = cohen_kappa_score(y_true, y_pred)
     
     # ===== PROBABILISTIC METRICS (if y_proba provided) =====
-    if y_proba is not None:
-        y_proba_pos = y_proba[:, 1] if y_proba.shape[1] == 2 else y_proba.flatten()
-        metrics['roc_auc'] = roc_auc_score(y_true, y_proba_pos)
-        metrics['average_precision'] = average_precision_score(y_true, y_proba_pos)
-        metrics['brier_score'] = np.mean((y_proba_pos - y_true) ** 2)
+    # if y_proba is not None:
+    #     y_proba_pos = y_proba[:, 1] if y_proba.shape[1] == 2 else y_proba.flatten()
+    #     metrics['roc_auc'] = roc_auc_score(y_true, y_proba_pos)
+    #     metrics['average_precision'] = average_precision_score(y_true, y_proba_pos)
+    #     metrics['brier_score'] = np.mean((y_proba_pos - y_true) ** 2)
     
     # ===== CLASS DISTRIBUTION =====
     unique, counts = np.unique(y_true, return_counts=True)
-    metrics['class_distribution'] = {int(k): int(v) for k, v in zip(unique, counts)}
+    # metrics['class_distribution'] = {int(k): int(v) for k, v in zip(unique, counts)}
     
     return metrics
 
@@ -94,40 +86,40 @@ def print_metrics(metrics, name="Evaluation Results"):
     
     print(f"\n📊 Basic Metrics:")
     print(f"  Accuracy:           {metrics['accuracy']:.4f}")
-    print(f"  Precision:          {metrics['precision']:.4f}")
-    print(f"  Recall:             {metrics['recall']:.4f}")
+    # print(f"  Precision:          {metrics['precision']:.4f}")
+    # print(f"  Recall:             {metrics['recall']:.4f}")
     
     print(f"\n🎯 Difficult Metrics (Recommended):")
     print(f"  Macro F1-Score:     {metrics['f1_macro']:.4f}    ← (equal weight per class)")
-    print(f"  Balanced Accuracy:  {metrics['balanced_accuracy']:.4f}  ← (avg per-class recalls)")
-    print(f"  MCC:                {metrics['mcc']:.4f}          ← (strictest metric)")
+    # print(f"  Balanced Accuracy:  {metrics['balanced_accuracy']:.4f}  ← (avg per-class recalls)")
+    # print(f"  MCC:                {metrics['mcc']:.4f}          ← (strictest metric)")
     
     print(f"\n📈 Other F1 Variants:")
     print(f"  F1 Binary:          {metrics['f1_binary']:.4f}")
     print(f"  F1 Weighted:        {metrics['f1_weighted']:.4f}")
     
-    print(f"\n🔍 Clinical Metrics:")
-    print(f"  Sensitivity (TPR):  {metrics['sensitivity']:.4f}")
-    print(f"  Specificity (TNR):  {metrics['specificity']:.4f}")
-    print(f"  Youden's Index:     {metrics['youden_index']:.4f}")
-    print(f"  Cohen's Kappa:      {metrics['cohen_kappa']:.4f}")
+    # print(f"\n🔍 Clinical Metrics:")
+    # print(f"  Sensitivity (TPR):  {metrics['sensitivity']:.4f}")
+    # print(f"  Specificity (TNR):  {metrics['specificity']:.4f}")
+    # print(f"  Youden's Index:     {metrics['youden_index']:.4f}")
+    # print(f"  Cohen's Kappa:      {metrics['cohen_kappa']:.4f}")
     
-    if 'roc_auc' in metrics:
-        print(f"\n📉 Probabilistic Metrics:")
-        print(f"  ROC-AUC:            {metrics['roc_auc']:.4f}")
-        print(f"  Average Precision:  {metrics['average_precision']:.4f}")
-        print(f"  Brier Score:        {metrics['brier_score']:.4f}")
+    # if 'roc_auc' in metrics:
+    #     print(f"\n📉 Probabilistic Metrics:")
+    #     print(f"  ROC-AUC:            {metrics['roc_auc']:.4f}")
+    #     print(f"  Average Precision:  {metrics['average_precision']:.4f}")
+    #     print(f"  Brier Score:        {metrics['brier_score']:.4f}")
     
-    print(f"\n🔗 Confusion Matrix:")
-    cm = metrics['confusion_matrix']
-    print(f"  TN={cm['TN']:3d}  FP={cm['FP']:3d}")
-    print(f"  FN={cm['FN']:3d}  TP={cm['TP']:3d}")
+    # print(f"\n🔗 Confusion Matrix:")
+    # cm = metrics['confusion_matrix']
+    # print(f"  TN={cm['TN']:3d}  FP={cm['FP']:3d}")
+    # print(f"  FN={cm['FN']:3d}  TP={cm['TP']:3d}")
     
-    print(f"\n📊 Class Distribution (y_true):")
-    for cls, count in metrics['class_distribution'].items():
-        print(f"  Class {cls}: {count} samples")
+    # print(f"\n📊 Class Distribution (y_true):")
+    # for cls, count in metrics['class_distribution'].items():
+    #     print(f"  Class {cls}: {count} samples")
     
-    print("="*60 + "\n")
+    # print("="*60 + "\n")
 
 def evaluate_submission(submission_path, ground_truth_path=None):
     """

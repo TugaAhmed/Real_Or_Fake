@@ -40,10 +40,8 @@ def main():
 
     if "id" in test_df.columns:
         test_ids = test_df["id"].astype(str).tolist()
-    elif "node_id" in test_df.columns:
-        test_ids = test_df["node_id"].astype(str).tolist()
     else:
-        print("❌ Test file must contain either 'id' or 'node_id' column")
+        print("❌ Test file must contain either 'id' column")
         return 1
     pred_ids = preds["id"].astype(str).tolist()
 

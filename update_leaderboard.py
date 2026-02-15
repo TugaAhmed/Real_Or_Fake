@@ -83,8 +83,7 @@ if not LEADERBOARD_CSV.exists():
             "model_type",
             "f1_score",
             "accuracy",
-            "precision",
-            "recall",
+          
             "submission_date",
             "submitter",
             "submitter_url",
@@ -213,8 +212,8 @@ md_lines = [
     "",
     "## Current Leaderboard",
     "",
-    "| Rank | Team | Run | Model | Type | F1-Score | Accuracy | Precision | Recall | Date | Submitter |",
-    "|------|------|-----|-------|------|----------|----------|-----------|--------|------|-----------|",
+    "| Rank | Team | Run | Model | Type | F1-Score | Accuracy | Date | Submitter |",
+    "|------|------|-----|-------|------|----------|----------|------|-----------|",
 ]
 
 for _, row in updated_df.iterrows():
@@ -227,8 +226,7 @@ for _, row in updated_df.iterrows():
             model_type=row["model_type"],
             f1_score=row["f1_score"],
             accuracy=row["accuracy"],
-            precision=row["precision"],
-            recall=row["recall"],
+            
             submission_date=row["submission_date"],
             submitter=row["submitter"],
         )
