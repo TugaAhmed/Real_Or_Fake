@@ -69,6 +69,7 @@ The dataset is split into **public** and **private** parts:
 <p align="center">
   <img src="images/graph_plot.png" alt="Graph Plot" width="600"/>
 </p> 
+<p align="center"> <em>Graph visualization generated using Gemini</em> </p>
 
 The graph connectivity and graph assignment information are stored in the following files:
 
