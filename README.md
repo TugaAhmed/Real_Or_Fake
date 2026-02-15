@@ -165,28 +165,99 @@ The baseline model is a **Graph Neural Network (GNN)** for fake news detection i
 - **Concatenation & Output:** Combines graph representation and root node features, then passes through a linear layer with **sigmoid** to predict fake/real news.  
 
 **Features used in baseline:**  
-  - spaCy Text embeddings of news and historical user tweets   
+  - spaCy Text embeddings of news and historical user tweets
+    
 **Output:**
   - Probability that a news graph is fake.
-
+    
+**Baseline performance on the validation set:**
+- **Accuracy:** 0.7261  
+- **F1 score:** 0.7068
 ---
 
 ## 🚀 Getting Started
 
-### 1. Clone the repo
+Follow these steps to replicate the baseline results and build your own implementation.
+
+### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/TugaAhmed/Open-GNN-Mini-Competition-.git
-cd gnn-challenge
+git clone https://github.com/TugaAhmed/Real_Or_Fake.git
+cd Real_Or_Fake
 ```
-### 2. Install dependencies
-``` bash
+
+### 2️⃣ Set Up Environment
+
+Create a virtual environment and install the required dependencies:
+
+```bash
+python -m venv venv
+source venv/bin/activate      # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
-### 3. Download dataset from the link above and place the unzpied data inside `data` folder
-### 4. After creating your model, run `test.py` that will generate `sumbission.csv` 
 
-### Submission Workflow
+### 3️⃣ Download and Prepare the Dataset
+
+Download the public dataset ZIP file from the link provided in the dataset section.
+
+Extract the contents inside the data/ folder so that the folder structure looks like this:
+
+```text
+data/
+└── public/
+    ├── A.txt
+    ├── new_bert_feature.npz
+    ├── new_spacy_feature.npz
+    ├── new_profile_feature.npz
+    ├── node_graph_id.npy
+    ├── train_idx.npy
+    ├── train_labels.csv
+    ├── val_idx.npy
+    ├── val_labels.csv
+    └── test_idx.npy
+
+```
+
+4️⃣ Train the Baseline Model
+
+Run the training script to train the GNN on the dataset:
+```bash
+python train.py
+```
+
+This will train the model and generate `saved_model.model` in the `models/` folder.
+
+The saved model corresponds to the one with the best validation accuracy.
+
+Metrics tracked during training: **Accuracy and F1 score**.
+
+5️⃣ Generate Predictions
+
+After training, run the test script to generate predictions:
+```bash
+python test.py
+```
+This will create a predictions.csv file inside the submissions/ folder.
+
+The CSV contains two columns: **id** , **y_pred**
+
+6️⃣ Evaluate Predictions
+
+You can evaluate your predictions using the evaluation script:
+
+```bash
+python evaluate.py
+```
+
+This script compares predictions.csv with the ground truth hidden labels in private/test_labels.csv.
+
+**Metrics reported include:**    
+   - Accuracy
+   - F1 Score
+     
+
+## 🚀 Submission Workflow
+
 * Fork the repo and add your submission CSV under submissions/
 * Create a pull request
 * GitHub Actions will automatically run scoring_script.py to evaluate your submission and update the leaderboard
