@@ -6,8 +6,6 @@ Welcome to the **GNN-based Fake News Detection Challenge**! This competition foc
 
 **[Live Leaderboard](https://tugaahmed.github.io/Real_Or_Fake/leaderboard.html)**
 
-Participants are asked to improve the baseline GNN model by including **user profile features** in addition to existing text embeddings.
-
 ---
 
 
@@ -48,28 +46,99 @@ Real_Or_Fake/
 
 ---
 
-## 🗂 Dataset
+## 📦 Dataset Overview
 
-We use the **GossipCop** and **Politifact** datasets, which contain Twitter news propagation graphs. Each graph represents a news article as the **root node**, and the users who retweeted the news as **child nodes**.
-You can download the data from this link : https://drive.google.com/drive/folders/1OslTX91kLEYIi2WBnwuFtXsVz5SS_XeR
+This competition uses the **GossipCop** dataset, which contains Twitter news propagation graphs. Each graph represents the spread of a single news article
+
+Each graph corresponds to a news article (root node) and all users who engaged with it (child nodes).
+  - Nodes: represent either the news article or a user who interacted with it.
+  - Edges: represent interactions or retweets between nodes. Only edges connecting nodes in the same graph are used for that graph
+  - The **root node** corresponds to the news article itself.
+  - **Child nodes** correspond to users who retweeted or engaged with the news.
+
+Graphs are used as input to Graph Neural Networks (GNNs) to classify news as **Real (0)** or **Fake (1)**.
+
+The dataset is split into **public** and **private** parts:
+
+- **Public:** Available to participants for training, validation, and testing.
+- **Private:** Hidden labels used for submission and leaderboard evaluation.
+
+---
+
+### Graph Structure 
+
+The graph connectivity and graph assignment information are stored in the following files:
+
+- **`A.txt`**  
+  Contains all edges in the dataset. Each row is an edge represented by two node IDs (source and target).  
+  **Type:** Integer array, shape `(num_edges, 2)`  
+
+- **`node_graph_id.npy`**  
+  Maps each node to its corresponding graph. The value at index `i` indicates the graph ID of node `i`.  
+  **Type:** Integer array, shape `(num_nodes,)`  
+  
 
 ### Node Features
 
-- **Text embeddings** of the news (root node) and historical tweets of users  
-  - Pretrained **spaCy word2vec** (300-dim) or **BERT embeddings** (768-dim)
-- **Task extension:** include **user profile features** (10-dim):
-  - Account age
-  - Verified status
-  - Number of followers/friends
-  - Number of tweets
-  - Geolocation enabled
-  - Description length
-  - etc.
+Each node in the graph has **text embeddings** and optionally **user profile features**.  
 
+#### 1. Text Embeddings
+- **BERT embeddings:** `768-dim` vectors representing the content of the news or user historical tweets.  
+  File: `new_bert_feature.npz`  
+- **spaCy embeddings:** `300-dim` vectors representing the content of the news or user historical tweets.  
+  File: `new_spacy_feature.npz`  
+
+#### 2. User Profile Features (10-dim)
+These features are derived from the Twitter user object using the Twitter API:  
+
+1. Verified? (`0` or `1`)  
+2. Geo-spatial enabled? (`0` or `1`)  
+3. Number of followers  
+4. Number of friends  
+5. Status/tweet count  
+6. Number of favorites  
+7. Number of lists the user is part of  
+8. Account age (months since Twitter launch)  
+9. Number of words in the user’s name  
+10. Number of words in the user’s description  
+
+File: `new_profile_feature.npz`  
+
+### Data Splits
+- **`train_idx.npy`**  
+  Contains the list of graph IDs used for training.  
+  **Type:** Integer array, shape `(num_train_graphs,)`  
+ 
+
+- **`val_idx.npy`**  
+  Contains the list of graph IDs used for validation.  
+  **Type:** Integer array, shape `(num_val_graphs,)`  
+
+
+- **`test_idx.npy`**  
+  Contains the list of graph IDs used for testing. Labels are hidden in the private folder for competition evaluation.  
+  **Type:** Integer array, shape `(num_test_graphs,)`  
+  
+  
 ### Graph Labels
 
-- `0`: Real news  
-- `1`: Fake news  
+Each graph in the dataset has a label indicating whether the news is **real** or **fake**:
+
+- `0` → Real news  
+- `1` → Fake news  
+
+Graph labels are stored separately for different splits:
+
+- **Training labels:** `train_labels.csv`  
+- **Validation labels:** `val_labels.csv`  
+- **Test labels (hidden for competition evaluation):** `private/test_labels.csv`  
+
+Each CSV file contains two columns:
+
+1. `id` → Graph ID  
+2. `y_true` → Label (0 or 1)
+
+
 
 ---
 
