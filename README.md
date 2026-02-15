@@ -256,8 +256,80 @@ This script compares predictions.csv with the ground truth hidden labels in priv
    - F1 Score
      
 
-## 🚀 Submission Workflow
+## 📤 Submission Workflow
 
-* Fork the repo and add your submission CSV under submissions/
-* Create a pull request
-* GitHub Actions will automatically run scoring_script.py to evaluate your submission and update the leaderboard
+Follow these steps to participate in the competition and submit your results.
+
+---
+
+### 1️⃣ Train Your Model Locally
+
+- Use the public dataset in `data/public/`.
+- Train your model using your own implementation.
+- Generate predictions for the **test set**.
+- Create a `predictions.csv` file.
+
+---
+
+### 2️⃣ Prepare Submission Files
+
+Each submission must include:
+
+#### ✅ `predictions.csv`
+
+Must contain exactly two columns:
+
+| Column  | Description |
+|----------|------------|
+| `id`     | graph identifier (must exactly match public test IDs) |
+| `y_pred` | Predicted probability or score |
+
+⚠️ IDs must exactly match those in the public test input file.  
+Incorrect formatting will cause automatic validation failure.
+
+#### ✅ `metadata.json`
+
+This file must indicate how the submission was produced:
+
+Example:
+```json
+{
+  "team_name": "your_team_name",
+  "submission_type": "human | llm | human+llm",
+  "notes": "Optional description"
+}
+```
+3️⃣ Submission Directory Structure
+
+Your Pull Request must add files in the following structure:
+```
+submissions/inbox/<team_name>/<run_id>/predictions.csv
+submissions/inbox/<team_name>/<run_id>/metadata.json
+```
+Example:
+```
+submissions/inbox/team_alpha/run_01/predictions.csv
+submissions/inbox/team_alpha/run_01/metadata.json
+```
+4️⃣ Submit via Pull Request
+
+Fork the repository.
+
+Add your submission files in the correct directory.
+
+Open a Pull Request (PR) to the main repository.
+
+5️⃣ Automatic Validation & Scoring
+
+When the Pull Request is opened:
+  - Submission format is validated
+  - Predictions are scored using hidden test labels
+  - Score is posted automatically as a PR comment
+  - Invalid submissions fail automatically.
+
+6️⃣ Leaderboard Update
+
+Once your Pull Request is approved and merged:
+  - Your score is appended to leaderboard/leaderboard.csv
+  - The leaderboard is automatically updated
+  - The interactive GitHub Pages leaderboard reflects the new score
