@@ -255,6 +255,32 @@ This script compares predictions.csv with the ground truth hidden labels in priv
    - Accuracy
    - F1 Score
      
+## 🎯 Competition Task
+
+Your goal is to **beat the baseline accuracy** on the fake news detection task using the provided Twitter news propagation graphs.
+
+### Baseline Overview
+- Uses **only spaCy text embeddings** of news articles and user historical tweets.
+- Achieves:
+  - **Accuracy:** 0.7261
+  - **F1 Score:** 0.7068
+
+### Your Task
+1. Build a **Graph Neural Network (GNN)** based pipeline.
+2. Use **any combination of available features**:
+   - SpaCy text embeddings (baseline feature)
+   - BERT embeddings (`new_bert_feature.npz`)
+   - User profile features (`new_profile_feature.npz`)
+3. Train your model on the **public training data** and validate on the validation set.
+4. Generate predictions for the **test set** and submit them via `predictions.csv`.
+
+### Rules
+- Your model **must use a GNN**; other models alone will not be accepted.
+- You may combine features in **any way** to improve performance.
+- The objective is to **maximize accuracy** on the hidden test set.
+
+---
+
 
 ## 📤 Submission Workflow
 
