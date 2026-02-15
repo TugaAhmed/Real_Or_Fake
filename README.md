@@ -152,23 +152,19 @@ Here are some key statistics for the news propagation graphs in the competition 
 
 **Task:** Classify each news propagation graph as real or fake.
 
-- **Baseline:** Uses only text embeddings of the news and historical tweets of users.
-- **Challenge:** Improve the baseline by including **user profile features** in the final node embeddings.
+### Baseline Model Description
 
----
+The baseline model is a **Graph Neural Network (GNN)** for fake news detection implemented in `model.py`. Its main components:
 
-## ⚡ Baseline Model
-
-The baseline GNN is implemented in `model.py`. It supports:
-
-- Graph Convolutional Network (GCN)
-- Graph Attention Network (GAT)
-- GraphSAGE
+- **Graph Attention Layers (GAT):** 3 layers to learn node embeddings from the propagation graph.  
+- **Global Max Pooling:** Aggregates node embeddings to a single graph-level representation.  
+- **Root Node Transformation:** Linear layer processes the root node (news article) features.  
+- **Concatenation & Output:** Combines graph representation and root node features, then passes through a linear layer with **sigmoid** to predict fake/real news.  
 
 **Features used in baseline:**  
-- Text embeddings of news and historical user tweets  
-**Features to add for challenge:**  
-- User profile features (10-dimensional)
+  - spaCy Text embeddings of news and historical user tweets   
+**Output:**
+  - Probability that a news graph is fake.
 
 ---
 
