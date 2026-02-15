@@ -37,7 +37,7 @@ function renderTable(rows) {
       <td>${Number(row.accuracy).toFixed(4)}</td>
    
       <td>${row.submission_date}</td>
-      <td>${submitterLink}</td>
+      
     `;
     tbody.appendChild(tr);
   });
