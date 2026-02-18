@@ -116,7 +116,8 @@ jobs:
       - name: Run scoring script
         id: score
         run: |
-          python scoring_script.py /tmp/pr_predictions.csv
+          METRICS=$(python scoring_script.py /tmp/pr_predictions.csv data/test_labels.csv)
+          echo "metrics=$METRICS" >> $GITHUB_OUTPUT
         continue-on-error: true
 
       - name: Extract metrics and comment
@@ -124,52 +125,43 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const fs = require('fs');
-            const submissionFile = "/tmp/pr_predictions.csv";
-            const metrics = require('child_process').execSync(
-              `python scoring_script.py ${submissionFile}`,
-              { encoding: 'utf-8' }
-            );
+            const metrics = JSON.parse(`${{ steps.score.outputs.metrics }}`);
+            let message = "## 🏆 Submission Scored\n\n";
+            for (const [key, value] of Object.entries(metrics)) {
+              message += `**${key}**: ${value}\n`;
+            }
+
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## 🏆 Submission Scored\n\n\`\`\`\n${metrics}\n\`\`\`\n\nCheck the [leaderboard](https://github.com/${{ github.repository }}/blob/main/leaderboard.md) for rankings!`
-            });
+              body: message
+               });
 
       - name: Update leaderboard
-        if: github.event_name == 'pull_request_target' && github.event.action == 'closed' && github.event.pull_request.merged == true
+        if: github.event_name == 'pull_request_target'  && steps.score.outcome == 'success'
         env:
-          SUBMITTER: ${{ steps.find_submission.outputs.submitter }}
-          PR_NUMBER: ${{ steps.find_submission.outputs.pr_number }}
           TEAM: ${{ steps.find_submission.outputs.team }}
           RUN_ID: ${{ steps.find_submission.outputs.run_id }}
+          MODEL: $(jq -r '.model' /tmp/pr_metadata.json)
+          TYPE: $(jq -r '.type' /tmp/pr_metadata.json)
+          F1: $(jq -r '.f1' <<< "${{ steps.score.outputs.metrics }}")
+          ACC: $(jq -r '.accuracy' <<< "${{ steps.score.outputs.metrics }}")
         run: |
-          mkdir -p "submissions/inbox/${TEAM}/${RUN_ID}"
-          cp /tmp/pr_predictions.csv "submissions/inbox/${TEAM}/${RUN_ID}/predictions.csv"
-          # Merge submitter info into metadata.json
-          python - <<'PY'
-          import json
-          meta_path = "submissions/inbox/${TEAM}/${RUN_ID}/metadata.json"
-          try:
-              with open("/tmp/pr_metadata.json", "r", encoding="utf-8") as f:
-                  meta = json.load(f)
-          except Exception:
-              meta = {}
-          meta["submitter"] = "${SUBMITTER}"
-          meta["pr_number"] = "${PR_NUMBER}"
-          with open(meta_path, "w", encoding="utf-8") as f:
-              json.dump(meta, f, indent=2)
-          PY
-          python update_leaderboard.py
-          python competition/render_leaderboard.py
+          python update_leaderboard.py \
+            --team "${TEAM}" \
+            --run "${RUN_ID}" \
+            --model "${MODEL}" \
+            --type "${TYPE}" \
+            --f1 "${F1}" \
+            --accuracy "${ACC}"
 
       - name: Commit leaderboard update
         if: github.event_name == 'pull_request_target' && github.event.action == 'closed' && github.event.pull_request.merged == true
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git add leaderboard/leaderboard.csv docs/leaderboard.csv leaderboard.md submissions/inbox
+          git add docs/leaderboard.csv 
           git commit -m "Update leaderboard with new submission" || true
           git push
 
