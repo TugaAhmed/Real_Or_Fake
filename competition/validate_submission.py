@@ -16,7 +16,8 @@ def main():
         return 1
 
     pred_path = Path(sys.argv[1])
-    default_test_nodes = Path("data/public/test_nodes.csv")
+    # default_test_nodes = Path("data/public/test_nodes.csv")
+    default_test_nodes = Path("data/public/test_idx.csv")
     default_test = Path("data/test.csv")
     test_path = Path(sys.argv[2]) if len(sys.argv) > 2 else (default_test_nodes if default_test_nodes.exists() else default_test)
 

@@ -102,8 +102,7 @@ def evaluate_submission(submission_path, ground_truth_path=None):
     return metrics
 
 if __name__ == "__main__":
-    import sys, json
-
+    import sys
     
     print("\n🎯 GNN Challenge Scoring Script")
     print("="*60)
@@ -122,8 +121,6 @@ if __name__ == "__main__":
         print(f"\n📂 Submission: {submission_file}")
         print(f"   Ground truth: {ground_truth_file}")
         metrics = evaluate_submission(submission_file, ground_truth_file)
-        if metrics:
-            print(json.dumps(metrics))
     else:
         print(f"❌ Submission file not found: {submission_file}")
         print(f"\nUsage: python scoring_script.py <submission_file.csv> [ground_truth_file.csv]")
