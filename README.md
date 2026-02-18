@@ -172,8 +172,8 @@ The baseline model is a **Graph Neural Network (GNN)** for fake news detection i
   - Probability that a news graph is fake.
     
 **Baseline performance on the validation set:**
-- **Accuracy:** 0.7261  
-- **F1 score:** 0.7068
+- **Accuracy:** 0.7115
+- **F1 score:** 0.7075
 ---
 
 ## 🚀 Getting Started

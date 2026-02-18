@@ -7,8 +7,8 @@ Render leaderboard.md from leaderboard/leaderboard.csv.
 import pandas as pd
 from pathlib import Path
 
-LEADERBOARD_CSV = Path("leaderboard/leaderboard.csv")
-LEADERBOARD_MD = Path("leaderboard.md")
+LEADERBOARD_CSV = Path("docs/leaderboard.csv")
+# LEADERBOARD_MD = Path("leaderboard.md")
 
 if not LEADERBOARD_CSV.exists():
     raise FileNotFoundError("leaderboard/leaderboard.csv not found")
@@ -20,8 +20,8 @@ lines = [
     "",
     "## Current Leaderboard",
     "",
-    "| Rank | Team | Run | Model | Type | F1-Score | Accuracy | Date | Submitter |",
-    "|------|------|-----|-------|------|----------|----------|------|-----------|",
+    "| Rank | Team | Run | Model | Type | F1-Score | Accuracy | Date |",
+    "|------|------|-----|-------|------|----------|----------|------|",
 ]
 
 for _, row in leaderboard.iterrows():
@@ -29,7 +29,7 @@ for _, row in leaderboard.iterrows():
     submitter_url = row.get("submitter_url", "")
     submitter_md = f"[{submitter}]({submitter_url})" if submitter and submitter_url else submitter
     lines.append(
-        "| {rank} | {team} | {run_id} | {model} | {model_type} | {f1_score:.4f} | {accuracy:.4f} | {precision:.4f} | {recall:.4f} | {submission_date} | {submitter} |".format(
+        "| {rank} | {team} | {run_id} | {model} | {model_type} | {f1_score:.4f} | {accuracy:.4f}| {submission_date} |".format(
             rank=int(row["rank"]),
             team=row["team"],
             run_id=row["run_id"],
@@ -38,7 +38,7 @@ for _, row in leaderboard.iterrows():
             f1_score=row["f1_score"],
             accuracy=row["accuracy"],
             submission_date=row["submission_date"],
-            submitter=submitter_md,
+           
         )
     )
 
@@ -49,4 +49,4 @@ lines.extend([
     "- Submissions must follow the `submissions/inbox/<team>/<run_id>/predictions.csv` format.",
 ])
 
-LEADERBOARD_MD.write_text("\n".join(lines), encoding="utf-8")
+# LEADERBOARD_MD.write_text("\n".join(lines), encoding="utf-8")

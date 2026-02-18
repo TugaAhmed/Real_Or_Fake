@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.metrics import accuracy_score, f1_score
 
 # Load CSVs
-labels = pd.read_csv("data/test_labels.csv")      # columns: id, y_true  . hidden file
+labels = pd.read_csv("data/public/test_labels.csv")      # columns: id, y_true  . hidden file
 preds  = pd.read_csv("submissions/sample_submission/predictions.csv")      # columns: id, y_pred
 
 # Inner join ensures we only evaluate matching graph IDs
