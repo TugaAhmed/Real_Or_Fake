@@ -69,6 +69,15 @@ Real_Or_Fake/
 
 ---
 
+## 📚 Dataset Source
+
+The dataset used in this repository is from the paper:
+
+> Dou, Y., Shu, K., Xia, C., Yu, P. S., & Sun, L. (2021). *User Preference-aware Fake News Detection*. In *Proceedings of the 44th International ACM SIGIR Conference on Research and Development in Information Retrieval* (SIGIR '21), pp. 2051–2055. [https://doi.org/10.1145/3404835.3462990](https://doi.org/10.1145/3404835.3462990)
+
+
+
+
 ## 📦 Dataset Overview
 
 This competition uses the **GossipCop** dataset, which contains Twitter news propagation graphs. Each graph represents the spread of a single news article
@@ -447,5 +456,8 @@ Once your Pull Request is approved and merged:
 
 
 
+## 🏫 Mentorship Program
 
+This competition is part of the [BASIRA-LAB](https://basira-lab.com/) **(GNNs) for Rising Stars Mentorship Program**  
 
+The lab’s tutorials on **Deep Graph Learning** served as guidance for preparing this challenge: [Tutorials Link](https://www.youtube.com/watch?v=gQRV_jUyaDw&list=PLug43ldmRSo14Y_vt7S6vanPGh-JpHR7T)
