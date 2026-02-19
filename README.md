@@ -315,18 +315,23 @@ Must contain exactly two columns:
 Incorrect formatting will cause automatic validation failure.
 
 #### ✅ `metadata.json`
-
-This file must indicate how the submission was produced:
-
-Example:
 ```json
 {
-  "team_name": "your_team_name",
-  "submission_type": "human | llm | human+llm",
-  "notes": "Optional description"
+  "team": "example_team",
+  "run_id": "example_run_id",
+  "type": "human", 
+  "model": "GAT",
+  "notes": "Additional notes"
 }
 ```
-3️⃣ Submission Directory Structure
+
+`type` must be one of:
+
+* `"human"`
+* `"llm-only"`
+* `"human+llm"`
+
+### 3️⃣ Submission Directory Structure
 
 Your Pull Request must add files in the following structure:
 ```
@@ -338,7 +343,7 @@ Example:
 submissions/inbox/team_alpha/run_01/predictions.csv
 submissions/inbox/team_alpha/run_01/metadata.json
 ```
-4️⃣ Submit via Pull Request
+### 4️⃣ Submit via Pull Request
 
 Fork the repository.
 
@@ -346,7 +351,7 @@ Add your submission files in the correct directory.
 
 Open a Pull Request (PR) to the main repository.
 
-5️⃣ Automatic Validation & Scoring
+### 5️⃣ Automatic Validation & Scoring
 
 When the Pull Request is opened:
   - Submission format is validated
@@ -354,7 +359,7 @@ When the Pull Request is opened:
   - Score is posted automatically as a PR comment
   - Invalid submissions fail automatically.
 
-6️⃣ Leaderboard Update
+### 6️⃣ Leaderboard Update
 
 Once your Pull Request is approved and merged:
   - Your score is appended to leaderboard/leaderboard.csv
