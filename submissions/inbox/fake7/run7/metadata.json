@@ -1,0 +1,7 @@
+{
+  "team": "fake7",
+  "run_id": "run7",
+  "type": "human", 
+  "model": "GAT",
+  "notes": "Additional notes"
+}
