@@ -128,12 +128,14 @@ jobs:
           echo "$PRIVATE_KEY" > /tmp/private.key
           gpg --batch --import /tmp/private.key
 
-      # -------------------------------
-      # Decrypt the submission
-      # -------------------------------
+
       - name: Decrypt submission
+        env:
+          PASSPHRASE: ${{ secrets.COMPETITION_GPG_PASSPHRASE }}
         run: |
           gpg --batch --yes \
+              --pinentry-mode loopback \
+              --passphrase "$PASSPHRASE" \
               --output /tmp/pr_predictions.csv \
               --decrypt /tmp/pr_predictions.csv.gpg
 
