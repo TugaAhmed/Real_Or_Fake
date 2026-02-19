@@ -144,7 +144,7 @@ jobs:
       # -------------------------------
       - name: Validate submission format
         run: |
-          python competition/validate_submission.py /tmp/pr_predictions.csv
+          python validate_submission.py /tmp/pr_predictions.csv
 
 
       # -------------------------------
@@ -192,7 +192,7 @@ jobs:
           TYPE=$(jq -r '.type' /tmp/pr_metadata.json)
           F1=$(echo '${{ steps.score.outputs.metrics }}' | jq -r '.f1')
           ACC=$(echo '${{ steps.score.outputs.metrics }}' | jq -r '.accuracy')
-          python competition/update_leaderboard.py \
+          python update_leaderboard.py \
             --team "$TEAM" \
             --run "$RUN_ID" \
             --model "$MODEL" \
