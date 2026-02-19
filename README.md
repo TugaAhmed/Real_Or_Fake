@@ -25,15 +25,38 @@ Real_Or_Fake/
 │   │   ├── train_labels.csv
 │   │   ├── val_idx.npy
 │   │   ├── val_labels.csv
+│   │   ├── test_idx.csv
 │   │   └── test_idx.npy
-│   └── private/   #hidden
-│       └── test_labels.csv  
+│   └── test_labels.csv   (kept private, restored via GitHub Secret)
+│
 ├── submissions/
-│   └── sample_submission/
-│       └── predictions.csv
+│   ├── sample_submission/
+│   │   └── predictions.csv
+│   └── inbox/
+│       └── team_name/
+│           └── run_name/
+│               ├── metadata.json
+│               └── predictions.csv.gpg
+│
+├── competition/
+│   ├── metrics.py
+│   ├── scoring_script.py
+│   ├── update_leaderboard.py
+│   └── validate_submission.py
+│
+├── docs/
+│   ├── leaderboard.css
+│   ├── leaderboard.csv
+│   ├── leaderboard.html
+│   └── leaderboard.js
+│
+├── key/
+│   └── competition_public_key.asc
+│
 ├── models/
 │   ├── model.py
 │   └── saved_model.model
+│
 ├── dataloader.py
 ├── evaluate.py
 ├── test.py
@@ -51,8 +74,8 @@ Real_Or_Fake/
 This competition uses the **GossipCop** dataset, which contains Twitter news propagation graphs. Each graph represents the spread of a single news article
 
 Each graph corresponds to a news article (root node) and all users who engaged with it (child nodes).
-  - Nodes: represent either the news article or a user who interacted with it.
-  - Edges: represent interactions or retweets between nodes. Only edges connecting nodes in the same graph are used for that graph
+  - **Nodes:** represent either the news article or a user who interacted with it.
+  - **Edges:** represent interactions or retweets between nodes. Only edges connecting nodes in the same graph are used for that graph
   - The **root node** corresponds to the news article itself.
   - **Child nodes** correspond to users who retweeted or engaged with the news.
 
@@ -69,7 +92,7 @@ The dataset is split into **public** and **private** parts:
 <p align="center">
   <img src="images/graph_plot.png" alt="Graph Plot" width="600"/>
 </p> 
-<p align="center"> <em>Graph visualization generated using Gemini</em> </p>
+<p align="center"> <em>Graph visualization generated using ChatGPT</em> </p>
 
 The graph connectivity and graph assignment information are stored in the following files:
 
@@ -135,7 +158,7 @@ Graph labels are stored separately for different splits:
 
 - **Training labels:** `train_labels.csv`  
 - **Validation labels:** `val_labels.csv`  
-- **Test labels (hidden for competition evaluation):** `private/test_labels.csv`  
+- **Test labels (hidden for competition evaluation):** `test_labels.csv`  
 - Each CSV file contains two columns:
     1. `id` → Graph ID  
     2. `y_true` → Label (0 or 1)
@@ -170,11 +193,6 @@ The baseline model is a **Graph Neural Network (GNN)** for fake news detection i
     
 **Output:**
   - Probability that a news graph is fake.
-    
-**Baseline performance on the validation set:**
-- **Accuracy:** 0.7115
-- **F1 score:** 0.7075
----
 
 ## 🚀 Getting Started
 
@@ -199,23 +217,24 @@ pip install -r requirements.txt
 
 ### 3️⃣ Download and Prepare the Dataset
 
-Download the public dataset ZIP file from the link provided in the dataset section.
+Download the public dataset ZIP file from this [link](https://drive.google.com/file/d/1YpEbCGAqja_tDFxd0KdZl3G0nKk7_4YG/view?usp=drive_link) .
 
-Extract the contents inside the data/ folder so that the folder structure looks like this:
+Extract the contents inside the data/public folder so that the folder structure looks like this:
 
 ```text
-data/
-└── public/
-    ├── A.txt
-    ├── new_bert_feature.npz
-    ├── new_spacy_feature.npz
-    ├── new_profile_feature.npz
-    ├── node_graph_id.npy
-    ├── train_idx.npy
-    ├── train_labels.csv
-    ├── val_idx.npy
-    ├── val_labels.csv
-    └── test_idx.npy
+├── data/
+│   ├── public/
+│   │   ├── A.txt
+│   │   ├── new_bert_feature.npz
+│   │   ├── new_spacy_feature.npz
+│   │   ├── new_profile_feature.npz
+│   │   ├── node_graph_id.npy
+│   │   ├── train_idx.npy
+│   │   ├── train_labels.csv
+│   │   ├── val_idx.npy
+│   │   ├── val_labels.csv
+│   │   ├── test_idx.csv
+│   │   └── test_idx.npy
 
 ```
 
@@ -250,7 +269,13 @@ You can evaluate your predictions using the evaluation script:
 python evaluate.py
 ```
 
-This script compares predictions.csv with the ground truth hidden labels in private/test_labels.csv.
+⚠️ **Note:**
+
+- The file `test_labels.csv` is **not publicly available**.
+- The evaluation script is provided **only to demonstrate how scoring works**.
+- The script will run successfully **only when the ground-truth labels are available**.
+- Final scoring is performed on the competition server after submission.
+
 
 **Metrics reported include:**    
    - Accuracy
@@ -263,8 +288,8 @@ Your goal is to **beat the baseline accuracy** on the fake news detection task u
 ### Baseline Overview
 - Uses **only spaCy text embeddings** of news articles and user historical tweets.
 - Achieves:
-  - **Accuracy:** 0.7261
-  - **F1 Score:** 0.7068
+  - **Accuracy:** 0.7216
+  - **F1 score:** 0.7071
 
 ### Your Task
 1. Build a **Graph Neural Network (GNN)** based pipeline.
@@ -273,7 +298,7 @@ Your goal is to **beat the baseline accuracy** on the fake news detection task u
    - BERT embeddings (`new_bert_feature.npz`)
    - User profile features (`new_profile_feature.npz`)
 3. Train your model on the **public training data** and validate on the validation set.
-4. Generate predictions for the **test set** and submit them via `predictions.csv`.
+4. Generate predictions for the **test set** as `predictions.csv`.
 
 ### Rules
 - Your model **must use a GNN**; other models alone will not be accepted.
