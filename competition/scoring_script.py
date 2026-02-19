@@ -25,15 +25,7 @@ def score_predictions(y_true, y_pred, y_proba=None):
     
     metrics = {}
     
-    # ===== BASIC METRICS =====
-    metrics['accuracy'] = accuracy_score(y_true, y_pred)
-    
-    
-    # ===== DIFFICULT METRIC #1: MACRO F1-SCORE =====
-    # Equal weight per class (penalizes minority class errors)
-    # metrics['f1_macro'] = f1_score(y_true, y_pred, average='macro', zero_division=0)
-    # metrics['f1_weighted'] = f1_score(y_true, y_pred, average='weighted', zero_division=0)
-    # metrics['f1_binary'] = f1_score(y_true, y_pred, average='binary', zero_division=0)
+    metrics['accuracy'] = accuracy_score(y_true, y_pred)  
     metrics['f1'] = f1_score(y_true, y_pred) 
    
     return metrics
@@ -64,17 +56,11 @@ def evaluate_submission(submission_path, ground_truth_path=None):
     # Load ground truth
     ground_truth = pd.read_csv(ground_truth_path)
     
-    # Merge on node_id
-    # merged = pd.merge(ground_truth, submission, on='node_id', suffixes=('_true', '_pred'))
     merged = pd.merge(ground_truth, submission, on='id', suffixes=('_true', '_pred'))
-    # print(" number of matching ids between ground_truth and submission" , len(merged))
     if len(merged) == 0:
         print("❌ No matching node_ids between submission and ground truth")
         return None
-    
-    # y_true = merged['target_true'].values
-    # y_pred_raw = merged['target_pred'].values
-
+   
     y_true = merged['y_true'].values
     y_pred_raw = merged['y_pred'].values
 
@@ -86,7 +72,6 @@ def evaluate_submission(submission_path, ground_truth_path=None):
     
     # Evaluate
     metrics = score_predictions(y_true, y_pred)
-    # print_metrics(metrics, name="Submission Evaluation")
     
     return metrics
 
