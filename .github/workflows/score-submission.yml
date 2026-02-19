@@ -143,18 +143,21 @@ jobs:
         env:
           TEAM: ${{ steps.find_submission.outputs.team }}
           RUN_ID: ${{ steps.find_submission.outputs.run_id }}
-          MODEL: $(jq -r '.model' /tmp/pr_metadata.json)
-          TYPE: $(jq -r '.type' /tmp/pr_metadata.json)
-          F1: $(jq -r '.f1' <<< "${{ steps.score.outputs.metrics }}")
-          ACC: $(jq -r '.accuracy' <<< "${{ steps.score.outputs.metrics }}")
+          
         run: |
-          python update_leaderboard.py \
-            --team "${TEAM}" \
-            --run "${RUN_ID}" \
-            --model "${MODEL}" \
-            --type "${TYPE}" \
-            --f1 "${F1}" \
-            --accuracy "${ACC}"
+          MODEL=$(jq -r '.model' /tmp/pr_metadata.json)
+          TYPE=$(jq -r '.type' /tmp/pr_metadata.json)
+
+          F1=$(echo '${{ steps.score.outputs.metrics }}' | jq -r '.f1')
+          ACC=$(echo '${{ steps.score.outputs.metrics }}' | jq -r '.accuracy')
+
+           python update_leaderboard.py \
+            --team "$TEAM" \
+            --run "$RUN_ID" \
+            --model "$MODEL" \
+            --type "$TYPE" \
+            --f1 "$F1" \
+            --accuracy "$ACC"
 
       - name: Commit leaderboard update
         if: github.event_name == 'pull_request_target' && github.event.action == 'closed' && github.event.pull_request.merged == true
