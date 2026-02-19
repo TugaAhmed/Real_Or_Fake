@@ -219,7 +219,7 @@ data/
 
 ```
 
-4️⃣ Train the Baseline Model
+### 4️⃣ Train the Baseline Model
 
 Run the training script to train the GNN on the dataset:
 ```bash
@@ -232,7 +232,7 @@ The saved model corresponds to the one with the best validation accuracy.
 
 Metrics tracked during training: **Accuracy and F1 score**.
 
-5️⃣ Generate Predictions
+### 5️⃣ Generate Predictions
 
 After training, run the test script to generate predictions:
 ```bash
@@ -242,7 +242,7 @@ This will create a predictions.csv file inside the submissions/ folder.
 
 The CSV contains two columns: **id** , **y_pred**
 
-6️⃣ Evaluate Predictions
+### 6️⃣ Evaluate Predictions
 
 You can evaluate your predictions using the evaluation script:
 
