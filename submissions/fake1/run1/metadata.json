@@ -1,0 +1,7 @@
+{
+  "team": "fake11",
+  "run_id": "run11",
+  "type": "human",
+  "model": "GAT",
+  "notes": "Optional notes about your submission"
+}
