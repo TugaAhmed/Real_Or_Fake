@@ -38,17 +38,6 @@ def score_predictions(y_true, y_pred, y_proba=None):
    
     return metrics
 
-def print_metrics(metrics, name="Evaluation Results"):
-    """Pretty-print metrics."""
-    print("\n" + "="*60)
-    print(f"  {name}")
-    print("="*60)
-    
-    print(f"\n📊 Basic Metrics:")
-    print(f"  Accuracy:           {metrics['accuracy']:.4f}")
-    print(f"  F1-score:           {metrics['f1']:.4f}")
-    
-
 def evaluate_submission(submission_path, ground_truth_path=None):
     """
     Evaluate a submission CSV against ground truth.
@@ -78,7 +67,7 @@ def evaluate_submission(submission_path, ground_truth_path=None):
     # Merge on node_id
     # merged = pd.merge(ground_truth, submission, on='node_id', suffixes=('_true', '_pred'))
     merged = pd.merge(ground_truth, submission, on='id', suffixes=('_true', '_pred'))
-    print(" number of matching ids between ground_truth and submission" , len(merged))
+    # print(" number of matching ids between ground_truth and submission" , len(merged))
     if len(merged) == 0:
         print("❌ No matching node_ids between submission and ground truth")
         return None
@@ -97,15 +86,12 @@ def evaluate_submission(submission_path, ground_truth_path=None):
     
     # Evaluate
     metrics = score_predictions(y_true, y_pred)
-    print_metrics(metrics, name="Submission Evaluation")
+    # print_metrics(metrics, name="Submission Evaluation")
     
     return metrics
 
 if __name__ == "__main__":
-    import sys
-    
-    print("\n🎯 GNN Challenge Scoring Script")
-    print("="*60)
+    import sys, json
     
     # Example usage
     submission_file = "submissions/inbox/example_team/example_run/predictions.csv"
@@ -118,9 +104,9 @@ if __name__ == "__main__":
         ground_truth_file = sys.argv[2]
     
     if os.path.exists(submission_file):
-        print(f"\n📂 Submission: {submission_file}")
-        print(f"   Ground truth: {ground_truth_file}")
         metrics = evaluate_submission(submission_file, ground_truth_file)
+        if metrics:
+            print(json.dumps(metrics))
     else:
         print(f"❌ Submission file not found: {submission_file}")
         print(f"\nUsage: python scoring_script.py <submission_file.csv> [ground_truth_file.csv]")
