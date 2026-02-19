@@ -119,8 +119,6 @@ if __name__ == "__main__":
         ground_truth_file = sys.argv[2]
     
     if os.path.exists(submission_file):
-        print(f"\n📂 Submission: {submission_file}")
-        print(f"   Ground truth: {ground_truth_file}")
         metrics = evaluate_submission(submission_file, ground_truth_file)
         if metrics:
             print(json.dumps(metrics))
