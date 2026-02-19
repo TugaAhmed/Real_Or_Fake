@@ -12,7 +12,7 @@ from pathlib import Path
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: python competition/validate_submission.py <predictions.csv> [test.csv]")
+        print("Usage: python validate_submission.py <predictions.csv> [test.csv]")
         return 1
 
     pred_path = Path(sys.argv[1])
