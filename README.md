@@ -4,7 +4,7 @@
 Welcome to the **GNN-based Fake News Detection Challenge**! This competition focuses on detecting fake news propagation on Twitter using Graph Neural Networks (GNNs). 
 
 
-**[Live Leaderboard](https://tugaahmed.github.io/Real_Or_Fake/leaderboard.html)**
+### ⭐📊 **[Live Leaderboard](https://tugaahmed.github.io/Real_Or_Fake/leaderboard.html)** 📊⭐
 
 ---
 
@@ -40,9 +40,7 @@ Real_Or_Fake/
 │
 ├── competition/
 │   ├── metrics.py
-│   ├── scoring_script.py
-│   ├── update_leaderboard.py
-│   └── validate_submission.py
+│   └── scoring_script.py
 │
 ├── docs/
 │   ├── leaderboard.css
@@ -61,6 +59,8 @@ Real_Or_Fake/
 ├── evaluate.py
 ├── test.py
 ├── train.py
+├── update_leaderboard.py
+├── validate_submission.py
 ├── requirements.txt
 ├── README.md
 └── LICENSE
@@ -142,17 +142,17 @@ File: `new_profile_feature.npz`
 
 ### Data Splits
 - **`train_idx.npy`**  
-  Contains the list of graph IDs used for training.  
+  Contains the list of **`3826`** graph IDs used for training.  
   **Type:** Integer array, shape `(num_train_graphs,)`  
  
 
 - **`val_idx.npy`**  
-  Contains the list of graph IDs used for validation.  
+  Contains the list of **`546`** graph IDs used for validation.  
   **Type:** Integer array, shape `(num_val_graphs,)`  
 
 
 - **`test_idx.npy`**  
-  Contains the list of graph IDs used for testing. Labels are hidden in the private folder for competition evaluation.  
+  Contains the list of **`1092`** graph IDs used for testing. Labels are hidden in the private folder for competition evaluation.  
   **Type:** Integer array, shape `(num_test_graphs,)`  
   
   
