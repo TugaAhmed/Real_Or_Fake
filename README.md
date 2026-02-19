@@ -308,6 +308,7 @@ Your goal is to **beat the baseline accuracy** on the fake news detection task u
 ---
 
 
+
 ## 📤 Submission Workflow
 
 Follow these steps to participate in the competition and submit your results.
@@ -319,7 +320,7 @@ Follow these steps to participate in the competition and submit your results.
 - Use the public dataset in `data/public/`.
 - Train your model using your own implementation.
 - Generate predictions for the **test set**.
-- Create a `predictions.csv` file.
+- Create a `predictions.csv` file locally.
 
 ---
 
@@ -327,24 +328,60 @@ Follow these steps to participate in the competition and submit your results.
 
 Each submission must include:
 
-#### ✅ `predictions.csv`
+#### ✅ `predictions.csv` (Local File Only – DO NOT Upload)
 
 Must contain exactly two columns:
 
 | Column  | Description |
 |----------|------------|
-| `id`     | graph identifier (must exactly match public test IDs) |
+| `id`     | Graph identifier (must exactly match public test IDs) |
 | `y_pred` | Predicted probability or score |
 
 ⚠️ IDs must exactly match those in the public test input file.  
 Incorrect formatting will cause automatic validation failure.
 
+🚫 **Do NOT upload `predictions.csv` to the repository.**
+
+---
+
+#### 🔐 Encrypt Your Predictions File
+
+Before submission, you must encrypt your `predictions.csv` using the competition public key located in:
+
+```
+key/competition_public_key.asc
+```
+
+Run the following commands in bash:
+
+```bash
+# Import the public key
+gpg --import competition_public_key.asc
+
+# Encrypt predictions file
+gpg --output predictions.csv.gpg \
+    --encrypt \
+    --recipient "GNN competition (Real or Fake) " \
+    predictions.csv
+```
+
+This will generate:
+
+```
+predictions.csv.gpg
+```
+
+✅ **Only this encrypted `.gpg` file is allowed for submission.**
+
+---
+
 #### ✅ `metadata.json`
+
 ```json
 {
   "team": "example_team",
   "run_id": "example_run_id",
-  "type": "human", 
+  "type": "human",
   "model": "GAT",
   "notes": "Additional notes"
 }
@@ -352,41 +389,63 @@ Incorrect formatting will cause automatic validation failure.
 
 `type` must be one of:
 
-* `"human"`
-* `"llm-only"`
-* `"human+llm"`
+- `"human"`
+- `"llm-only"`
+- `"human+llm"`
+
+---
 
 ### 3️⃣ Submission Directory Structure
 
 Your Pull Request must add files in the following structure:
+
 ```
-submissions/inbox/<team_name>/<run_id>/predictions.csv
-submissions/inbox/<team_name>/<run_id>/metadata.json
+submissions/inbox/<team_name>/<run_id>/
+    ├── predictions.csv.gpg
+    └── metadata.json
 ```
+
 Example:
+
 ```
-submissions/inbox/team_alpha/run_01/predictions.csv
-submissions/inbox/team_alpha/run_01/metadata.json
+submissions/inbox/team_alpha/run_01/
+    ├── predictions.csv.gpg
+    └── metadata.json
 ```
+
+🚫 Uploading `predictions.csv` will result in automatic rejection.
+
+---
+
 ### 4️⃣ Submit via Pull Request
 
-Fork the repository.
+1. Fork the repository.
+2. Add your encrypted submission files in the correct directory.
+3. Open a Pull Request (PR) to the main repository.
 
-Add your submission files in the correct directory.
-
-Open a Pull Request (PR) to the main repository.
+---
 
 ### 5️⃣ Automatic Validation & Scoring
 
 When the Pull Request is opened:
-  - Submission format is validated
-  - Predictions are scored using hidden test labels
-  - Score is posted automatically as a PR comment
-  - Invalid submissions fail automatically.
+
+- Submission format is validated
+- The encrypted file is securely decrypted by the competition server
+- Predictions are scored using hidden test labels
+- Score is posted automatically as a PR comment
+- Invalid submissions fail automatically
+
+---
 
 ### 6️⃣ Leaderboard Update
 
 Once your Pull Request is approved and merged:
-  - Your score is appended to leaderboard/leaderboard.csv
-  - The leaderboard is automatically updated
-  - The interactive GitHub Pages leaderboard reflects the new score
+
+- Your score is appended to `docs/leaderboard.csv`
+- The leaderboard is automatically updated
+- The interactive GitHub Pages leaderboard reflects the new score
+
+
+
+
+
