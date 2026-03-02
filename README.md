@@ -226,7 +226,7 @@ pip install -r requirements.txt
 
 ### 3️⃣ Download and Prepare the Dataset
 
-Download the public dataset ZIP file from this [link](https://drive.google.com/file/d/1YpEbCGAqja_tDFxd0KdZl3G0nKk7_4YG/view?usp=drive_link) .
+Download the public dataset ZIP file from this [link](https://drive.google.com/file/d/1sn_xFAM_9StN49AL50XNJaV3f9_TVKn5/view?usp=sharing) .
 
 Extract the contents inside the data/public folder so that the folder structure looks like this:
 
@@ -429,7 +429,7 @@ submissions/inbox/team_alpha/run_01/
 ### 4️⃣ Submit via Pull Request
 
 1. Fork the repository.
-2. Add your encrypted submission files in the correct directory.
+2. Add your metadata and encrypted submission files in the correct directory.
 3. Open a Pull Request (PR) to the main repository.
 
 ---
@@ -448,11 +448,8 @@ When the Pull Request is opened:
 
 ### 6️⃣ Leaderboard Update
 
-Once your Pull Request is approved and merged:
-
 - Your score is appended to `docs/leaderboard.csv`
-- The leaderboard is automatically updated
-- The interactive GitHub Pages leaderboard reflects the new score
+- The leaderboard page is automatically updated
 
 
 
