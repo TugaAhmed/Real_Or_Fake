@@ -1,2 +1,3 @@
 rank,team,run_id,model,model_type,f1_score,accuracy,submission_date
-1,abdksm,run_01,GCN,human,0.90371782650143,0.9075091575091575,2026-03-04 15:11:47
+1,Abderrahmane Kasmi,run_01,GCN,human,0.90371782650143,0.9075091575091575,2026-03-04 15:11:47
+
