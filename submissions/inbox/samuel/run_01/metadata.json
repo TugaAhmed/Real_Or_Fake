@@ -3,5 +3,5 @@
   "run_id": "run_01",
   "type": "human",
   "model": "SAGEConv",
-  "notes": "SAGEConv with skip connections, and learning rate scheduler"
+  "notes": ""
 }
