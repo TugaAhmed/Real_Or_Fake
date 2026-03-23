@@ -1,0 +1,7 @@
+{
+  "team": "Murad",
+  "run_id": "run_20260323_150826",
+  "type": "human",
+  "model": "ImprovedGNN_GATv2_CPU",
+  "notes": "Seed 25, CPU Colab run, 5-run tuning budget, early stopping enabled."
+}
