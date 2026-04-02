@@ -1,7 +1,0 @@
-{
-  "team": "Ignatius",
-  "run_id": "run_02_GAT",
-  "type": "human",
-  "model": "GAT",
-  "notes": "GAT model with 3 GAT layers"
-}

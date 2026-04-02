@@ -1,7 +1,14 @@
 import torch
+import random
+import numpy as np
 from dataloader import GraphDataset
 from models.model import GNN
 from sklearn.metrics import accuracy_score, f1_score
+
+random.seed(25)
+np.random.seed(25)
+torch.manual_seed(25)
+
 
 epochs_no = 30
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -17,7 +24,7 @@ loss_fnc = torch.nn.BCELoss()
 def metrics(preds, gts):
     preds = torch.round(torch.cat(preds)) 
     gts = torch.cat(gts) 
-    return accuracy_score(preds, gts), f1_score(preds, gts)
+    return accuracy_score(gts, preds), f1_score(gts, preds)
 
 def train_epoch():
     model.train()
