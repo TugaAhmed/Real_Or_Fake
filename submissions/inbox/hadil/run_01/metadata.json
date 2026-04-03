@@ -1,0 +1,7 @@
+{
+    "team": "hadil",
+    "run_id": "run_01",
+    "type": "human+llm",
+    "model": "Improved GNN (GATv2 + Multi-Feature)",
+    "notes": " integrating BERT, spaCy, and User Profile features with a 3-layer GATv2Conv architecture."
+}
