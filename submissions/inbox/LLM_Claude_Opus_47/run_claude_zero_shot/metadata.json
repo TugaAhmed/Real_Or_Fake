@@ -1,0 +1,7 @@
+{
+  "team": "LLM_Claude_Opus_47",
+  "run_id": "claude_4.7_zero_shot",
+  "type": "llm",
+  "model": "GraphSAGE",
+  "notes": "Zero-shot frozen GNN-CB prompt; CPU run; 0 repair iterations; generated from llm_real_or_fake/run_claude."
+}
