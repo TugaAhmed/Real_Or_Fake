@@ -201,7 +201,7 @@ The baseline model is a **Graph Neural Network (GNN)** for fake news detection i
   - spaCy Text embeddings of news and historical user tweets
     
 **Output:**
-  - Probability that a news graph is fake.
+  - Predicted Class (Real Or Fake)
 
 ## 🚀 Getting Started
 
@@ -344,7 +344,7 @@ Must contain exactly two columns:
 | Column  | Description |
 |----------|------------|
 | `id`     | Graph identifier (must exactly match public test IDs) |
-| `y_pred` | Predicted probability or score |
+| `y_pred` | Predicted Class |
 
 ⚠️ IDs must exactly match those in the public test input file.  
 Incorrect formatting will cause automatic validation failure.
