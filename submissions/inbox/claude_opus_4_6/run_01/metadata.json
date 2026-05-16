@@ -1,5 +1,5 @@
 {
-  "team": "example_team",
+  "team": "claude_opus_4_6",
   "run_id": "real_or_fake_gnn_v1",
   "type": "llm",
   "model": "GAT",
