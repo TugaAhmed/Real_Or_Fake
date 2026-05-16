@@ -1,0 +1,7 @@
+{
+  "team": "example_team",
+  "run_id": "real_or_fake_gnn_v1",
+  "type": "llm",
+  "model": "GAT",
+  "notes": "3-layer GAT (heads=4, hidden=128, dropout=0.3) with residual connections, BN, global max pooling + root node features. Input: spaCy (300-dim) + profile (10-dim) = 310-dim. Adam lr=0.001, ReduceLROnPlateau patience=5. Early stopping patience=10 on val F1. Best epoch 11, ValAcc=0.9670, ValF1=0.9683."
+}
