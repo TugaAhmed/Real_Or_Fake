@@ -1,7 +1,0 @@
-{
-  "team": "AIkram",
-  "run_id": "run_1",
-  "type": "human",
-  "model": "GAT",
-  "notes": "3-layer GAT with BERT+spaCy+profile features, root node transform"
-}
