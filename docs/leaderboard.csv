@@ -20,3 +20,4 @@ rank,team,run_id,model,model_type,f1_score,accuracy,submission_date
 19,Mubaraq,run_001,GCN with DiffPool,human,0.9176915799432356,0.9203296703296703,2026-04-03 16:58:56
 20,Abderrahmane Kasmi,run_01,GCN,human,0.90371782650143,0.9075091575091575,2026-03-04 15:11:47
 21,VinitSingroha,run_1,GAT with BERT+Profile Dropout and bigger hidden channels,,0.766566265060241,0.7161172161172161,2026-04-16 06:38:27
+22,gpt5.4,run_01,model,llm,0.7071290944123314,0.7216117216117216,2026-05-17 22:12:53
