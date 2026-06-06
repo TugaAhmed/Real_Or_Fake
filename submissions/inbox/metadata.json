@@ -1,0 +1,7 @@
+{
+    "team": "VinitSingroha",
+    "run_id": "run 1",
+    "type": "",
+    "model": "GAT with BERT+Profile, Dropout and bigger hidden channels",
+    "notes": ""
+}
