@@ -1,0 +1,7 @@
+{
+  "team": "Muhammad Isah",
+  "run_id": "run_01",
+  "type": "human",
+  "model": "SAGEGNN",
+  "notes": "SAGE-based GNN with spaCy and profile features, early stopping"
+}
