@@ -1,0 +1,7 @@
+{
+  "team": "idrees_Bhat",
+  "run_id": "run_01",
+  "type": "human",
+  "model": "GAT",
+  "notes": "baseline + minor improvements"
+}
