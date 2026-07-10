@@ -1,7 +1,0 @@
-{
-  "team": "Qwen2.5-Coder-32B-Instruct",
-  "run_id": "run_0",
-  "type": "LLM",
-  "model": "GATConv",
-  "notes": "/"
-}
