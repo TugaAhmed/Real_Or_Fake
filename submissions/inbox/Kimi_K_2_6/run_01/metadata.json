@@ -1,0 +1,7 @@
+{
+  "team": "Kimi K 2.6",
+  "run_id": "run_01",
+  "type": "llm-only",
+  "model": "ImprovedGAT",
+  "notes": "GNN with BERT+spaCy+profile features, GAT layers, mean+max pooling, early stopping"
+}
