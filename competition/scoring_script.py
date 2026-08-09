@@ -79,7 +79,7 @@ if __name__ == "__main__":
     import sys, json
     
     # Example usage
-    submission_file = "submissions/inbox/example_team/example_run/predictions.csv"
+    submission_file = "submissions/inbox/sanae/run_01/predictions.csv"
     ground_truth_file = "data/test_labels.csv"  # True labels for test set created in the workflow by decoding secret csv
     
     if len(sys.argv) > 1:
@@ -96,4 +96,4 @@ if __name__ == "__main__":
         print(f"❌ Submission file not found: {submission_file}")
         print(f"\nUsage: python scoring_script.py <submission_file.csv> [ground_truth_file.csv]")
         print(f"\nExample:")
-        print(f"  python scoring_script.py submissions/inbox/my_team/run_001/predictions.csv")
+        print(f"  python scoring_script.py submissions/inbox/sanae/run_01/predictions.csv")
