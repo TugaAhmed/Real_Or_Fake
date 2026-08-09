@@ -1,0 +1,7 @@
+{
+    "team": "abdksm",
+    "run_id": "run_01",
+    "type": "human",
+    "model": "GCN",
+    "notes": "using only SpaCy text embeddings"
+}
